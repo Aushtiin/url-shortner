@@ -1,14 +1,13 @@
 const express = require('express');
 const app = express();
 const { graphqlHTTP } = require('express-graphql');
-const connectDB = require('./config/db');
+const { connectDB } = require('./config/db');
 const Url = require('./models/Url');
 const { schema, root } = require('./schema/schema')
 const expressPlayground = require("graphql-playground-middleware-express").default
 require('dotenv').config()
 
-connectDB()
-;
+connectDB();
 
 app.use('/graphql', graphqlHTTP({
   schema,

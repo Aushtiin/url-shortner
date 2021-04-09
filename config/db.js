@@ -1,20 +1,25 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
-const db = process.env.NODE_ENV === 'development' ? process.env.MONGO_URI : process.env.TEST_MONGO;
+const db = process.env.NODE_ENV === 'test' ? process.env.TEST_MONGO : process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, {
+    const conn = await mongoose.connect(db, {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
     });
 
-    console.log('Connected to MongoB...');
+    console.log('Connected to MongoDB...');
+    return conn
   } catch (error) {
     console.error(error.message);
     process.exit(1);
   }
 }
 
+// const disconnectDB = connectDB.conn.disconnect();
 
-module.exports = connectDB
+module.exports = {
+  connectDB,
+  // disconnectDB
+}

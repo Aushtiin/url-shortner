@@ -19,7 +19,7 @@ const root = {
 
     const urlCode = shortid.generate();
 
-    if (validUrl.isUri(longUrl)) {
+    if (validUrl.isHttpsUri(longUrl)) {
       try {
         let url = await Url.findOne({ longUrl });
         if (url) {
